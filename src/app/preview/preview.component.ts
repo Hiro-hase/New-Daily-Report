@@ -16,6 +16,14 @@ export class PreviewComponent implements OnInit {
     return this.previewService.startTimeMinute;
   }
 
+  get endTimeHour() {
+    return this.previewService.endTimeHour;
+  }
+
+  get endTimeMinute() {
+    return this.previewService.endTimeMinute;
+  }
+
   get todayTask() {
     return this.previewService.todayTask;
   }

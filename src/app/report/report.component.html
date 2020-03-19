@@ -7,6 +7,12 @@
     </select>時
     <select formControlName="startTimeMinute">
       <option *ngFor="let minute of optionMinute">{{minute}}</option>
+    </select>分 〜
+    <select formControlName="endTimeHour">
+      <option *ngFor="let hour of optionHour">{{hour}}</option>
+    </select>時
+    <select formControlName="endTimeMinute">
+      <option *ngFor="let minute of optionMinute">{{minute}}</option>
     </select>分
     <input type="text" size="60" formControlName="todayTask" placeholder="作業内容を記入">
     <div>
