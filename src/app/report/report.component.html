@@ -1,0 +1,29 @@
+<h2>report component</h2>
+<div [formGroup]="reportForm">
+  <label>
+    本日の作業:
+    <select formControlName="startTimeHour">
+      <option *ngFor="let hour of optionHour">{{hour}}</option>
+    </select>時
+    <select formControlName="startTimeMinute">
+      <option *ngFor="let minute of optionMinute">{{minute}}</option>
+    </select>分
+    <input type="text" size="60" formControlName="todayTask" placeholder="作業内容を記入">
+    <div>
+      <label>今日学んだこと:<br>
+        <textarea cols="60" rows="4" formControlName="todayLarnd"></textarea>
+      </label>
+    </div>
+    <div>
+      <label>疑問点:<br>
+        <textarea cols="60" rows="4" formControlName="todayQuestion"></textarea>
+      </label>
+    </div>
+    <div>
+      <label>発生した課題:<br>
+        <textarea name="Issue" cols="60" rows="4" formControlName="todayIssue"></textarea>
+      </label>
+    </div>
+    <button (click)='click()' routerLink="/preview">生成</button>
+  </label>
+</div>
