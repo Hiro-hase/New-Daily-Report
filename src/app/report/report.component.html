@@ -14,7 +14,14 @@
     <select formControlName="endTimeMinute">
       <option *ngFor="let minute of optionMinute">{{minute}}</option>
     </select>分
-    <input type="text" size="60" formControlName="todayTask" placeholder="作業内容を記入">
+    <input type="text" size="60" formControlName="todayTask" required placeholder="作業内容を記入">
+
+    <div *ngIf="todayTask.invalid && (todayTask.dirty || todayTask.touched)" class="alert alert-danger">
+      <div *ngIf="todayTask.errors.required">
+        todayTask is required.
+      </div>
+    </div>
+
     <div>
       <label>今日学んだこと:<br>
         <textarea cols="60" rows="4" formControlName="todayLarnd"></textarea>
