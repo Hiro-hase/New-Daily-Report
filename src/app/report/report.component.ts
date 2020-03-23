@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { PreviewService } from '../preview.service';
 
 @Component({
@@ -9,14 +9,14 @@ import { PreviewService } from '../preview.service';
 })
 export class ReportComponent {
   reportForm = this.fb.group({
-    startTimeHour : [7],
-    startTimeMinute : [0],
-    endTimeHour : [7],
-    endTimeMinute : [0],
-    todayTask : [''],
-    todayLarnd : [''],
-    todayQuestion : [''],
-    todayIssue : ['']
+    startTimeHour : [7, Validators.required],
+    startTimeMinute : [0, Validators.required],
+    endTimeHour : [7, Validators.required],
+    endTimeMinute : [0, Validators.required],
+    todayTask : ['', [Validators.required]],
+    todayLarnd : ['', Validators.required],
+    todayQuestion : ['', Validators.required],
+    todayIssue : ['', Validators.required]
   })
 
   optionHour = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
@@ -25,6 +25,10 @@ export class ReportComponent {
   constructor(private previewService: PreviewService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
+  }
+
+  get todayTask() {
+    return this.reportForm.value.todayTask;
   }
 
   click() {
