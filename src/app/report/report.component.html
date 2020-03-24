@@ -1,42 +1,66 @@
 <h2>report component</h2>
 <div [formGroup]="reportForm">
   <label>
-    本日の作業:
-    <select formControlName="startTimeHour">
-      <option *ngFor="let hour of optionHour">{{hour}}</option>
-    </select>時
-    <select formControlName="startTimeMinute">
-      <option *ngFor="let minute of optionMinute">{{minute}}</option>
-    </select>分 〜
-    <select formControlName="endTimeHour">
-      <option *ngFor="let hour of optionHour">{{hour}}</option>
-    </select>時
-    <select formControlName="endTimeMinute">
-      <option *ngFor="let minute of optionMinute">{{minute}}</option>
-    </select>分
-    <input type="text" size="60" formControlName="todayTask" required placeholder="作業内容を記入">
+    <div formGroupName="todayTaskForm">
+      本日の作業:
+      <select formControlName="startTimeHour">
+        <option *ngFor="let hour of optionHour">{{hour}}</option>
+      </select>時
+      <select formControlName="startTimeMinute">
+        <option *ngFor="let minute of optionMinute">{{minute}}</option>
+      </select>分 〜
+      <select formControlName="endTimeHour">
+        <option *ngFor="let hour of optionHour">{{hour}}</option>
+      </select>時
+      <select formControlName="endTimeMinute">
+        <option *ngFor="let minute of optionMinute">{{minute}}</option>
+      </select>分
+      <input type="text" size="60" formControlName="todayTask" required placeholder="作業内容を記入">
 
-    <div *ngIf="todayTask.invalid && (todayTask.dirty || todayTask.touched)" class="alert alert-danger">
-      <div *ngIf="todayTask.errors.required">
-        todayTask is required.
+      <div *ngIf="todayTask.invalid && (todayTask.dirty || todayTask.touched)" class="alert alert-danger">
+        <div *ngIf="todayTask.errors.required">
+          作業を入力してください
+        </div>
       </div>
     </div>
-
+  </label>
+  <label>
     <div>
       <label>今日学んだこと:<br>
         <textarea cols="60" rows="4" formControlName="todayLarnd"></textarea>
       </label>
     </div>
+
+    <div *ngIf="todayLarnd.invalid && (todayLarnd.dirty || todayLarnd.touched)" class="alert alert-danger">
+      <div *ngIf="todayLarnd.errors.required">
+        学んだことを入力してください
+      </div>
+    </div>
+
     <div>
       <label>疑問点:<br>
         <textarea cols="60" rows="4" formControlName="todayQuestion"></textarea>
       </label>
     </div>
+
+    <div *ngIf="todayQuestion.invalid && (todayQuestion.dirty || todayQuestion.touched)" class="alert alert-danger">
+      <div *ngIf="todayQuestion.errors.required">
+        疑問点を入力してください
+      </div>
+    </div>
+
     <div>
       <label>発生した課題:<br>
         <textarea name="Issue" cols="60" rows="4" formControlName="todayIssue"></textarea>
       </label>
     </div>
-    <button (click)='click()' routerLink="/preview">生成</button>
+
+    <div *ngIf="todayIssue.invalid && (todayIssue.dirty || todayIssue.touched)" class="alert alert-danger">
+      <div *ngIf="todayIssue.errors.required">
+        発生した課題を入力してください
+      </div>
+    </div>
+
+    <button (click)='click()' [disabled]="!reportForm.valid" routerLink="/preview">生成</button>
   </label>
 </div>
