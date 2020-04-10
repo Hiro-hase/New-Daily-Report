@@ -1,10 +1,8 @@
-<h2>preview component</h2>
-<label>本日の作業</label>
-<div>{{startTimeHour}}:{{startTimeMinute}}〜{{endTimeHour}}:{{endTimeMinute}}{{todayTask}}</div>
-<div></div>
-<label>今日学んだこと</label>
-<div>{{todayLarnd}}</div>
-<label>疑問点</label>
-<div>{{todayQuestion}}</div>
-<label>発生した課題</label>
-<div>{{todayIssue}}</div>
+<div class="test">
+  <mat-form-field>
+    <textarea matInput #inputtarget cols="70" rows="20">{{report}}</textarea>
+  </mat-form-field>
+  <div class="row justify-content-center">
+    <button mat-raised-button color="primary" class="btn btn-primary" [ngxClipboard]="inputtarget">日報をコピー</button>
+  </div>
+</div>
