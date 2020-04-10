@@ -1,66 +1,78 @@
 <h2>report component</h2>
-<div [formGroup]="reportForm">
-  <label>
-    <div formGroupName="todayTaskForm">
-      本日の作業:
-      <select formControlName="startTimeHour">
-        <option *ngFor="let hour of optionHour">{{hour}}</option>
-      </select>時
-      <select formControlName="startTimeMinute">
-        <option *ngFor="let minute of optionMinute">{{minute}}</option>
-      </select>分 〜
-      <select formControlName="endTimeHour">
-        <option *ngFor="let hour of optionHour">{{hour}}</option>
-      </select>時
-      <select formControlName="endTimeMinute">
-        <option *ngFor="let minute of optionMinute">{{minute}}</option>
-      </select>分
-      <input type="text" size="60" formControlName="todayTask" required placeholder="作業内容を記入">
-
-      <div *ngIf="todayTask.invalid && (todayTask.dirty || todayTask.touched)" class="alert alert-danger">
-        <div *ngIf="todayTask.errors.required">
-          作業を入力してください
+<div class="test" [formGroup]="reportForm">
+  <div>
+    <div formArrayName="todayTaskForms">
+        <div *ngFor="let TaskForm of todayTaskForms.controls; let i=index" style="height: 100px;">
+          <div class="box1" [formGroupName]="i" style="display: flex; justify-content: center; height: 100%; align-items: center; width: 700px; margin-right: auto; margin-left: auto;">
+            <div class="height_todayTaskForm">
+              本日の作業:
+            </div>
+            <div>
+              <div>
+                <mat-select class="display_inline" formControlName="startTimeHour">
+                  <mat-option *ngFor="let hour of optionHour" [value]="hour">{{hour}}</mat-option>
+                </mat-select>時
+                <mat-select class="display_inline" formControlName="startTimeMinute">
+                  <mat-option *ngFor="let minute of optionMinute" [value]="minute">{{minute}}</mat-option>
+                </mat-select>分 〜
+                <mat-select class="display_inline" formControlName="endTimeHour">
+                  <mat-option *ngFor="let hour of optionHour" [value]="hour">{{hour}}</mat-option>
+                </mat-select>時
+                <mat-select class="display_inline" formControlName="endTimeMinute">
+                  <mat-option *ngFor="let minute of optionMinute" [value]="minute">{{minute}}</mat-option>
+                </mat-select>分
+              </div>
+              <mat-form-field>
+                <input matInput type="text" size="60" formControlName="todayTask" required placeholder="作業内容を記入">
+                <mat-error *ngIf="TaskForm.invalid && (TaskForm.dirty || TaskForm.touched)">
+                  作業を入力してください
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="height_todayTaskForm">
+              <button mat-raised-button color="primary" (click)="removeTask(i)">削除</button>
+            </div>
+          </div>
         </div>
-      </div>
+      </div><br>
+      <div style="margin-top: 10px;">
+        <button mat-raised-button color="primary" (click)="addTask()">追加</button>
+      </div><br>
     </div>
-  </label>
-  <label>
     <div>
-      <label>今日学んだこと:<br>
-        <textarea cols="60" rows="4" formControlName="todayLarnd"></textarea>
-      </label>
-    </div>
+      <div>
+        <mat-form-field>
+          <mat-label>今日学んだこと:</mat-label>
+          <textarea matInput cols="60" rows="4" formControlName="todayLarnd" placeholder="Angular Material"></textarea>
+          <mat-error *ngIf="todayLarnd.invalid && (todayLarnd.dirty || todayLarnd.touched)">
+            学んだことを入力してください
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-    <div *ngIf="todayLarnd.invalid && (todayLarnd.dirty || todayLarnd.touched)" class="alert alert-danger">
-      <div *ngIf="todayLarnd.errors.required">
-        学んだことを入力してください
+      <div>
+        <mat-form-field>
+          <mat-label>疑問点:</mat-label>
+          <textarea matInput cols="60" rows="4" formControlName="todayQuestion" placeholder="サーバーの内容がわからない"></textarea>
+          <mat-error *ngIf="todayQuestion.invalid && (todayQuestion.dirty || todayQuestion.touched)">
+            疑問点を入力してください
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>発生した課題:</mat-label>
+          <textarea matInput name="Issue" cols="60" rows="4" formControlName="todayIssue" placeholder="調べる時間が長すぎる">
+        </textarea>
+          <mat-error *ngIf="todayIssue.invalid && (todayIssue.dirty || todayIssue.touched)">
+            発生した課題を入力してください
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-raised-button color="primary" (click)='preview()' routerLink="preview">生成</button>
       </div>
     </div>
-
-    <div>
-      <label>疑問点:<br>
-        <textarea cols="60" rows="4" formControlName="todayQuestion"></textarea>
-      </label>
-    </div>
-
-    <div *ngIf="todayQuestion.invalid && (todayQuestion.dirty || todayQuestion.touched)" class="alert alert-danger">
-      <div *ngIf="todayQuestion.errors.required">
-        疑問点を入力してください
-      </div>
-    </div>
-
-    <div>
-      <label>発生した課題:<br>
-        <textarea name="Issue" cols="60" rows="4" formControlName="todayIssue"></textarea>
-      </label>
-    </div>
-
-    <div *ngIf="todayIssue.invalid && (todayIssue.dirty || todayIssue.touched)" class="alert alert-danger">
-      <div *ngIf="todayIssue.errors.required">
-        発生した課題を入力してください
-      </div>
-    </div>
-
-    <button (click)='click()' [disabled]="!reportForm.valid" routerLink="/preview">生成</button>
-  </label>
-</div>
+  </div>
